@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediksi Diabetes</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+<div class="card">
+    <h1>Prediksi Risiko Diabetes</h1>
+    <p>Masukkan data kesehatan untuk melihat hasil prediksi</p>
+
+    <form action="/predict" method="POST">
+        <input type="number" step="any" name="Glucose" placeholder="Glucose" required>
+        <input type="number" step="any" name="BMI" placeholder="BMI" required>
+        <input type="number" step="any" name="Age" placeholder="Age" required>
+        <input type="number" step="any" name="BloodPressure" placeholder="Blood Pressure" required>
+        <input type="number" step="any" name="Insulin" placeholder="Insulin" required>
+        <input type="number" step="any" name="DiabetesPedigreeFunction" placeholder="Diabetes Pedigree Function" required>
+        <input type="number" step="any" name="physical_activity_minutes_per_week" placeholder="Physical Activity / Week" required>
+        <input type="number" step="any" name="diet_score" placeholder="Diet Score" required>
+        <input type="number" step="any" name="sleep_hours_per_day" placeholder="Sleep Hours / Day" required>
+        <input type="number" step="any" name="family_history_diabetes" placeholder="Family History Diabetes (0/1)" required>
+
+        <button type="submit">Cek Prediksi</button>
+    </form>
+
+    {% if prediction_text %}
+        <div class="result">
+            Hasil Prediksi: <b>{{ prediction_text }}</b>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
