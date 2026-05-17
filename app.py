@@ -4,7 +4,6 @@ import pickle
 
 app = Flask(__name__)
 
-# Load model
 model = pickle.load(open("model_diabetes.pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 
@@ -14,7 +13,6 @@ def index():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-
     input_data = np.array([[
         float(request.form["Glucose"]),
         float(request.form["BMI"]),
@@ -29,7 +27,6 @@ def predict():
     ]])
 
     input_scaled = scaler.transform(input_data)
-
     prediction = model.predict(input_scaled)
 
     result = (
@@ -38,10 +35,7 @@ def predict():
         else "Tidak Berisiko Diabetes"
     )
 
-    return render_template(
-        "index.html",
-        prediction_text=result
-    )
+    return render_template("index.html", prediction_text=result)
 
 if __name__ == "__main__":
     app.run()
