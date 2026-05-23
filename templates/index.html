@@ -1,35 +1,157 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Prediksi Diabetes</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Risiko Diabetes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="card">
-    <h1>Prediksi Risiko Diabetes</h1>
-    <p>Masukkan data kesehatan untuk melihat hasil prediksi</p>
+<div class="page-overlay">
+    <div class="main-layout">
 
-    <form action="/predict" method="POST">
-        <input type="number" step="any" name="Glucose" placeholder="Glucose" required>
-        <input type="number" step="any" name="BMI" placeholder="BMI" required>
-        <input type="number" step="any" name="Age" placeholder="Age" required>
-        <input type="number" step="any" name="BloodPressure" placeholder="Blood Pressure" required>
-        <input type="number" step="any" name="Insulin" placeholder="Insulin" required>
-        <input type="number" step="any" name="DiabetesPedigreeFunction" placeholder="Diabetes Pedigree Function" required>
-        <input type="number" step="any" name="physical_activity_minutes_per_week" placeholder="Physical Activity / Week" required>
-        <input type="number" step="any" name="diet_score" placeholder="Diet Score" required>
-        <input type="number" step="any" name="sleep_hours_per_day" placeholder="Sleep Hours / Day" required>
-        <input type="number" step="any" name="family_history_diabetes" placeholder="Family History Diabetes (0/1)" required>
+        <!-- KIRI: INFORMASI -->
+        <div class="info-panel">
+            <span class="badge">AI & Machine Learning</span>
+            <h1>Prediksi Risiko Diabetes</h1>
+            <p class="intro">
+                Aplikasi ini membantu memperkirakan risiko diabetes berdasarkan
+                10 variabel kesehatan dan gaya hidup. Hasil prediksi dapat digunakan
+                sebagai screening awal, namun bukan pengganti diagnosis dokter.
+            </p>
 
-        <button type="submit">Cek Prediksi</button>
-    </form>
+            <div class="info-box">
+                <h3>Apa itu Diabetes?</h3>
+                <p>
+                    Diabetes adalah kondisi ketika kadar gula darah tinggi karena tubuh
+                    tidak memproduksi insulin yang cukup atau tidak dapat menggunakan insulin
+                    secara efektif. Jika tidak dikontrol, diabetes dapat menyebabkan komplikasi
+                    pada jantung, ginjal, mata, dan saraf.
+                </p>
+            </div>
 
-    {% if prediction_text %}
-        <div class="result">
-            Hasil Prediksi: <b>{{ prediction_text }}</b>
+            <div class="info-box">
+                <h3>10 Variabel yang Digunakan</h3>
+                <div class="chip-list">
+                    <span>Glucose</span>
+                    <span>BMI</span>
+                    <span>Age</span>
+                    <span>Blood Pressure</span>
+                    <span>Insulin</span>
+                    <span>Diabetes Pedigree Function</span>
+                    <span>Physical Activity / Week</span>
+                    <span>Diet Score</span>
+                    <span>Sleep Hours / Day</span>
+                    <span>Family History Diabetes</span>
+                </div>
+            </div>
+
+            <div class="info-box small-note">
+                <h3>Catatan</h3>
+                <p>
+                    Hasil prediksi hanya bersifat estimasi berbasis model machine learning.
+                    Untuk diagnosis dan penanganan yang tepat, tetap konsultasikan ke tenaga kesehatan.
+                </p>
+            </div>
+<div class="info-box advice-box">
+    <h3>Saran Pencegahan Diabetes</h3>
+
+    <div class="advice-list">
+        <div class="advice-item">
+            <span>01</span>
+            <p>Jaga pola makan dengan mengurangi makanan tinggi gula dan karbohidrat sederhana.</p>
         </div>
-    {% endif %}
+
+        <div class="advice-item">
+            <span>02</span>
+            <p>Lakukan aktivitas fisik secara rutin, minimal berjalan kaki atau olahraga ringan beberapa kali seminggu.</p>
+        </div>
+
+        <div class="advice-item">
+            <span>03</span>
+            <p>Pertahankan berat badan ideal dan pantau indeks massa tubuh atau BMI secara berkala.</p>
+        </div>
+
+        <div class="advice-item">
+            <span>04</span>
+            <p>Istirahat cukup, kelola stres, dan lakukan pemeriksaan gula darah secara berkala.</p>
+        </div>
+    </div>
+</div>
+        </div>
+
+        <!-- KANAN: FORM -->
+        <div class="form-panel">
+            <div class="form-card">
+                <h2>Masukkan Data Pasien</h2>
+                <p class="form-subtitle">Isi seluruh variabel berikut untuk mendapatkan hasil prediksi.</p>
+
+                <form action="/predict" method="POST" class="form-grid">
+
+                    <div class="input-group">
+                        <label>Glucose</label>
+                        <input type="number" step="any" name="glucose" placeholder="Contoh: 120" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>BMI</label>
+                        <input type="number" step="any" name="bmi" placeholder="Contoh: 25.5" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Age</label>
+                        <input type="number" step="any" name="age" placeholder="Contoh: 35" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Blood Pressure</label>
+                        <input type="number" step="any" name="blood_pressure" placeholder="Contoh: 80" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Insulin</label>
+                        <input type="number" step="any" name="insulin" placeholder="Contoh: 90" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Diabetes Pedigree Function</label>
+                        <input type="number" step="any" name="dpf" placeholder="Contoh: 0.45" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Physical Activity / Week</label>
+                        <input type="number" step="any" name="physical_activity" placeholder="Contoh: 3" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Diet Score</label>
+                        <input type="number" step="any" name="diet_score" placeholder="Contoh: 7" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Sleep Hours / Day</label>
+                        <input type="number" step="any" name="sleep_hours" placeholder="Contoh: 8" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Family History Diabetes</label>
+                        <input type="number" step="any" name="family_history" placeholder="0 = Tidak, 1 = Ya" required>
+                    </div>
+
+                    <button type="submit">Cek Prediksi</button>
+                </form>
+
+                {% if result %}
+                <div class="result {{ status }}">
+                    <h3>{{ result }}</h3>
+                    <p>{{ message }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
 </div>
 
 </body>
